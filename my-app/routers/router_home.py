@@ -59,6 +59,18 @@ def reporteAccesos():
 @app.route("/interfaz-clave", methods=['GET','POST'])
 def claves():
     return render_template('public/usuarios/generar_clave.html', dataLogin=dataLoginSesion())
+
+
+
+#DASBOARD
+@app.route("/dashboard", methods=['GET', 'POST'])
+def dashboard():
+    return render_template('public/usuarios/dashboard.html', dataLogin=dataLoginSesion())
+#DASBOARD
+
+
+
+
     
 @app.route('/generar-y-guardar-clave/<string:id>', methods=['GET','POST'])
 def generar_clave(id):
