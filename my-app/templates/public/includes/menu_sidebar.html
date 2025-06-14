@@ -1,0 +1,140 @@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+  <div class="app-brand demo">
+    <a href="{{ url_for('inicio') }}" class="app-brand-link">
+      <span class="app-brand-logo demo">
+        <img src="{{ url_for('static', filename ='assets/img/logo.png') }}" alt="Logo" />
+      </span>
+    </a>
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="bx bx-chevron-left bx-sm align-middle"></i>
+    </a>
+  </div>
+
+  <div class="menu-inner-shadow"></div>
+
+  <ul class="menu-inner py-5">
+
+    <!-- GENERAL -->
+    <li class="menu-title-section">
+      <span>GENERAL</span>
+      <hr class="section-divider" />
+    </li>
+
+    <li class="menu-item {% if request.path == '/dashboard' %} active {% endif %}">
+      <a href="/dashboard" class="menu-link">
+        <i class="menu-icon bi bi-speedometer2"></i>
+        <div>Dashboard</div>
+      </a>
+    </li>
+
+    <li class="menu-item {% if request.path == '/lista-de-usuarios' %} active {% endif %}">
+      <a href="/lista-de-usuarios" class="menu-link">
+        <i class="menu-icon bi bi-people-fill"></i>
+        <div>Lista de Usuarios</div>
+      </a>
+    </li>
+
+    <li class="menu-item {% if request.path == '/interfaz-clave' %} active {% endif %}">
+      <a href="/interfaz-clave" class="menu-link">
+        <i class="menu-icon bi bi-person-fill-lock"></i>
+        <div>Generar Clave</div>
+      </a>
+    </li>
+
+    <li class="menu-item {% if request.path == '/reporte-accesos' %} active {% endif %}">
+      <a href="/reporte-accesos" class="menu-link">
+        <i class="menu-icon bi bi-file-lock-fill"></i>
+        <div>Reporte Accesos</div>
+      </a>
+    </li>
+
+    <li class="menu-item {% if request.path == '/mi-perfil/{{dataLogin.id}}' %} active {% endif %}">
+      <a href="/mi-perfil/{{dataLogin.id}}" class="menu-link">
+        <i class="menu-icon bi bi-person-fill-gear"></i>
+        <div>Mi Perfil</div>
+      </a>
+    </li>
+
+    <!-- GESTIÓN DE BIBLIOTECA -->
+    <li class="menu-title-section mt-4">
+      <span>GESTIÓN DE BIBLIOTECA</span>
+      <hr class="section-divider" />
+    </li>
+
+    <li class="menu-item {% if request.path == '/lista-de-areas' %} active {% endif %}">
+      <a href="/lista-de-areas" class="menu-link">
+        <i class="menu-icon bi bi-book-half"></i>
+        <div>Lista Libros</div>
+      </a>
+    </li>
+
+    <li class="menu-item {% if request.path == '/lista_user1' %} active {% endif %}">
+      <a href="/lista_user1" class="menu-link">
+        <i class="menu-icon bi bi-building"></i>
+        <div>Ver</div>
+      </a>
+    </li>
+
+    <!-- SENSORES Y MONITOREO -->
+    <li class="menu-title-section mt-4">
+      <span>SENSORES Y MONITOREO</span>
+      <hr class="section-divider" />
+    </li>
+
+    <li class="menu-item {% if request.path == '/temperatura' %} active {% endif %}">
+      <a href="/temperatura" class="menu-link">
+        <i class="menu-icon bi bi-thermometer-half"></i>
+        <div>Temperatura</div>
+      </a>
+    </li>
+
+    <li class="menu-item {% if request.path == '/sensor-humo' %} active {% endif %}">
+      <a href="/sensor-humo" class="menu-link">
+        <i class="menu-icon bi bi-cloud-fog2-fill"></i>
+        <div>Sensor de Humo</div>
+      </a>
+    </li>
+
+    <li class="menu-item {% if request.path == '/accesos-rfid' %} active {% endif %}">
+      <a href="/accesos-rfid" class="menu-link">
+        <i class="menu-icon bi bi-credit-card-fill"></i>
+        <div>Accesos RFID</div>
+      </a>
+    </li>
+
+    <li class="menu-item {% if request.path == '/gestion-energetica' %} active {% endif %}">
+      <a href="/gestion-energetica" class="menu-link">
+        <i class="menu-icon bi bi-lightning-charge-fill"></i>
+        <div>Gestión Energética</div>
+      </a>
+    </li>
+
+    <li class="menu-item {% if request.path == '/my-app/templates/public/usuarios/prueba.html' %} active {% endif %}">
+      <a href="./" class="menu-link">
+        <i class="menu-icon bi bi-lightbulb-fill"></i>
+        <div>prueba</div>
+      </a>
+    </li>
+    
+    <li class="menu-item {% if request.path == '/alertas' %} active {% endif %}">
+  <a href="/alertas" class="menu-link">
+    <i class="menu-icon bi bi-bell-fill"></i>
+    <div>Alertas</div>
+  </a>
+</li>
+
+
+    <!-- Separador + Cerrar Sesión -->
+    <li class="menu-divider my-3">
+      <hr class="section-divider" />
+    </li>
+
+    <li class="menu-item">
+      <a href="{{ url_for('cerraSesion') }}" class="menu-link">
+        <i class="menu-icon bi bi-box-arrow-right"></i>
+        <div>Cerrar Sesión</div>
+      </a>
+    </li>
+
+  </ul>
+</aside>
