@@ -38,6 +38,10 @@ def perfil(id):
 def cpanelRegisterUser():
         return render_template(f'{PATH_URL_LOGIN}/auth_register.html',dataLogin = dataLoginSesion(),areas=lista_areasBD(), roles=lista_rolesBD())
 
+@app.route('/register-libro', methods=['GET'])
+def cpanelRegisterlibro():
+        return render_template(f'{PATH_URL_LOGIN}/auth_registerlibro.html',dataLogin = dataLoginSesion(),areas=lista_areasBD(), roles=lista_rolesBD())
+
 
 # Recuperar cuenta de usuario
 @app.route('/recovery-password', methods=['GET'])

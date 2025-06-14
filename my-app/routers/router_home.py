@@ -21,6 +21,15 @@ def usuarios():
         return render_template('public/usuarios/lista_usuarios.html',  resp_usuariosBD=lista_usuariosBD(), dataLogin=dataLoginSesion(), areas=lista_areasBD(), roles = lista_rolesBD())
     else:
         return redirect(url_for('inicioCpanel'))
+    
+
+@app.route("/lista-de-libros", methods=['GET'])
+def libros():
+    if 'conectado' in session:
+        return render_template('public/usuarios/lista_libros.html',  resp_usuariosBD=lista_usuariosBD(), dataLogin=dataLoginSesion(), areas=lista_areasBD(), roles = lista_rolesBD())
+    else:
+        return redirect(url_for('inicioCpanel'))
+
 
 #Ruta especificada para eliminar un usuario
 @app.route('/borrar-usuario/<string:id>', methods=['GET'])

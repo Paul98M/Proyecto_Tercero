@@ -326,3 +326,17 @@ def obtener_accesos_por_fecha(fecha_inicio, fecha_fin):
         print(f"Error en obtener_accesos_por_fecha: {e}")
         return []
     
+
+
+
+# emjemplo    
+def lista_librosBD():
+    # Datos de ejemplo fijos
+    libros = [
+        {'id_libro': 1, 'titulo': 'Cien Años de Soledad',    'autor': 'Gabriel García Márquez', 'precio': 12.50},
+        {'id_libro': 2, 'titulo': 'El Señor de los Anillos', 'autor': 'J.R.R. Tolkien',           'precio': 20.00},
+        {'id_libro': 3, 'titulo': '1984',                    'autor': 'George Orwell',           'precio': 15.75},
+    ]
+    print(f"[DEBUG] lista_librosBD() devolvió {len(libros)} registros")
+    return libros
+    
