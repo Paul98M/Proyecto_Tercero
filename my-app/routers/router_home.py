@@ -22,12 +22,81 @@ def usuarios():
     else:
         return redirect(url_for('inicioCpanel'))
     
+@app.route("/lista-de-autores", methods=['GET'])
+def autores():
+    """
+    Ruta para mostrar la lista de autores.
+    Requiere que el usuario esté conectado.
+    """
+    if 'conectado' in session:
+        # Renderiza la plantilla HTML para la lista de autores
+        # Pasando los datos de los autores y la información de la sesión
+        return render_template(
+            'public/usuarios/autores.html',
+            resp_autoresBD=lista_autoresBD(), # Datos de los autores desde la base de datos
+            dataLogin=dataLoginSesion()       # Datos del usuario logueado
+        )
+    else:
+        # Si el usuario no está conectado, redirige a la página de inicio del cPanel
+        return redirect(url_for('inicioCpanel'))
+    
+@app.route("/lista-de-categorias", methods=['GET'])
+def categorias():
+    """
+    Ruta para mostrar la lista de categorías.
+    Requiere que el usuario esté conectado.
+    """
+    if 'conectado' in session:
+        # Renderiza la plantilla HTML para la lista de categorías
+        # Pasando los datos de las categorías obtenidos de la base de datos
+        # y la información de la sesión.
+        return render_template(
+            'public/usuarios/lista_categorias.html', # Asegúrate de que esta sea la ruta correcta
+            resp_categoriasBD=lista_categoriasBD(),    # Datos de las categorías desde la base de datos
+            dataLogin=dataLoginSesion()                # Datos del usuario logueado
+        )
+    else:
+        # Si el usuario no está conectado, redirige a la página de inicio del cPanel
+        return redirect(url_for('inicioCpanel'))
+    
+@app.route("/lista-de-ubicaciones", methods=['GET'])
+def ubicaciones():
+    """
+    Ruta para mostrar la lista de ubicaciones.
+    Requiere que el usuario esté conectado.
+    """
+    if 'conectado' in session:
+        # Renderiza la plantilla HTML para la lista de ubicaciones
+        # Pasando los datos de las ubicaciones obtenidos de la base de datos
+        # y la información de la sesión.
+        return render_template(
+            'public/usuarios/lista_ubicaciones.html', # La ruta de la plantilla asumiendo que está en esta ubicación
+            resp_ubicacionesBD=lista_ubicacionesBD(),    # Datos de las ubicaciones desde la base de datos
+            dataLogin=dataLoginSesion()                  # Datos del usuario logueado
+        )
+    else:
+        # Si el usuario no está conectado, redirige a la página de inicio del cPanel
+        return redirect(url_for('inicioCpanel'))
+    
+
 
 @app.route("/lista-de-libros", methods=['GET'])
 def libros():
+    """
+    Route to display the list of books.
+    Requires the user to be logged in.
+    """
     if 'conectado' in session:
-        return render_template('public/usuarios/lista_libros.html',  resp_usuariosBD=lista_usuariosBD(), dataLogin=dataLoginSesion(), areas=lista_areasBD(), roles = lista_rolesBD())
+        # Renders the HTML template for the book list
+        # Passing the book data obtained from the database
+        # and the session information.
+        return render_template(
+            'public/usuarios/lista_libros.html', # Template path, assuming it's in this location
+            resp_librosBD=lista_librosBD(),      # Book data from the database
+            dataLogin=dataLoginSesion()          # Logged-in user data
+        )
     else:
+        # If the user is not logged in, redirects to the cPanel home page
         return redirect(url_for('inicioCpanel'))
 
 

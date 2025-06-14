@@ -1,0 +1,78 @@
+{% extends 'public/base_cpanel.html' %}
+<!-- Cambiando el title -->
+{% block title %}Crud - Python 🐍 | Lista de Categorías{% endblock %}
+<!---->
+{% block body %}
+<div class="card content_consignaciones" style="border-radius: 0px !important">
+    <section id="respuestaFiltroMes">
+        <h2 class="text-center mt-5 mb-5">
+            Lista de Categorías
+            <hr />
+        </h2>
+
+        <p class="btn btn-primary" style="margin-left: 10px;">
+            <a href="./register-categoria"> {# Enlace para registrar una nueva categoría #}
+                <span style="color: white;">Nueva Categoría</span>
+            </a>
+        </p>
+
+        <div class="table-responsive text-nowrap">
+            <table class="table table-hover">
+                <thead>
+                    <tr style="background-color: #ddd">
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th> {# Columna para Actualizar y Eliminar #}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categoria in resp_categoriasBD %}
+                    <tr>
+                        <td>{{ categoria.nombre_categoria }}</td>
+                        <td>{{ categoria.descripcion }}</td>
+                        <td>
+                            <a
+                                href="/editar-categoria/{{ categoria.id_categoria }}" {# Enlace para editar categoría #}
+                                class="btn btn-success btn-sm"
+                                tooltip="Actualizar Registro">
+                                <i class="bi bi-arrow-clockwise"></i>
+                                Actualizar
+                            </a>
+                            <a
+                                style="color: white;"
+                                onclick="eliminarCategoria('{{ categoria.id_categoria }}', '{{ categoria.nombre_categoria }}');" {# Función eliminarCategoria con id y nombre #}
+                                class="btn btn-danger btn-sm"
+                                data-bs-toggle="tooltip"
+                                data-bs-offset="0,4"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="<span>Eliminar a {{ categoria.nombre_categoria }}</span>">
+                                <i class="bi bi-trash3"></i>
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+<!--Script Custom-->
+{% block customJS %}
+<script>
+    function eliminarCategoria(id, nombreCategoria) {
+        // Usamos una modal personalizada en lugar de alert/confirm para mejor UX y compatibilidad.
+        const confirmation = confirm(`¿Estás seguro que deseas eliminar la categoría ${nombreCategoria}?`);
+
+        if (confirmation) {
+            let url = `/borrar-categoria/${id}`; // URL para la ruta de eliminación de categoría
+            if (url) {
+                window.location.href = url;
+            }
+        }
+    }
+</script>
+{% endblock %}

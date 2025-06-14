@@ -1,0 +1,78 @@
+{% extends 'public/base_cpanel.html' %}
+<!-- Cambiando el title -->
+{% block title %}Crud - Python 🐍 | Lista de Ubicaciones{% endblock %}
+<!---->
+{% block body %}
+<div class="card content_consignaciones" style="border-radius: 0px !important">
+    <section id="respuestaFiltroMes">
+        <h2 class="text-center mt-5 mb-5">
+            Lista de Ubicaciones
+            <hr />
+        </h2>
+
+        <p class="btn btn-primary" style="margin-left: 10px;">
+            <a href="./register-ubicacion"> {# Enlace para registrar una nueva ubicación #}
+                <span style="color: white;">Nueva Ubicación</span>
+            </a>
+        </p>
+
+        <div class="table-responsive text-nowrap">
+            <table class="table table-hover">
+                <thead>
+                    <tr style="background-color: #ddd">
+                        <th>Nombre de Ubicación</th>
+                        <th>Referencia</th>
+                        <th>Acciones</th> {# Columna para Actualizar y Eliminar #}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ubicacion in resp_ubicacionesBD %}
+                    <tr>
+                        <td>{{ ubicacion.nombre_ubicacion }}</td>
+                        <td>{{ ubicacion.referencia }}</td>
+                        <td>
+                            <a
+                                href="/editar-ubicacion/{{ ubicacion.id_ubicacion }}" {# Enlace para editar ubicación #}
+                                class="btn btn-success btn-sm"
+                                tooltip="Actualizar Registro">
+                                <i class="bi bi-arrow-clockwise"></i>
+                                Actualizar
+                            </a>
+                            <a
+                                style="color: white;"
+                                onclick="eliminarUbicacion('{{ ubicacion.id_ubicacion }}', '{{ ubicacion.nombre_ubicacion }}');" {# Función eliminarUbicacion con id y nombre #}
+                                class="btn btn-danger btn-sm"
+                                data-bs-toggle="tooltip"
+                                data-bs-offset="0,4"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="<span>Eliminar a {{ ubicacion.nombre_ubicacion }}</span>">
+                                <i class="bi bi-trash3"></i>
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+<!--Script Custom-->
+{% block customJS %}
+<script>
+    function eliminarUbicacion(id, nombreUbicacion) {
+        // Usamos una modal personalizada en lugar de alert/confirm para mejor UX y compatibilidad.
+        const confirmation = confirm(`¿Estás seguro que deseas eliminar la ubicación ${nombreUbicacion}?`);
+
+        if (confirmation) {
+            let url = `/borrar-ubicacion/${id}`; // URL para la ruta de eliminación de ubicación
+            if (url) {
+                window.location.href = url;
+            }
+        }
+    }
+</script>
+{% endblock %}

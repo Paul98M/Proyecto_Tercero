@@ -328,15 +328,103 @@ def obtener_accesos_por_fecha(fecha_inicio, fecha_fin):
     
 
 
-
-# emjemplo    
-def lista_librosBD():
-    # Datos de ejemplo fijos
-    libros = [
-        {'id_libro': 1, 'titulo': 'Cien Años de Soledad',    'autor': 'Gabriel García Márquez', 'precio': 12.50},
-        {'id_libro': 2, 'titulo': 'El Señor de los Anillos', 'autor': 'J.R.R. Tolkien',           'precio': 20.00},
-        {'id_libro': 3, 'titulo': '1984',                    'autor': 'George Orwell',           'precio': 15.75},
-    ]
-    print(f"[DEBUG] lista_librosBD() devolvió {len(libros)} registros")
-    return libros
     
+def lista_autoresBD():
+    """
+    Obtiene la lista de autores desde la base de datos.
+    Consulta las columnas id_autor, nombre_completo y nacionalidad de la tabla 'autores'.
+    """
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                # Consulta SQL para seleccionar los datos necesarios de la tabla 'autores'
+                querySQL = "SELECT id_autor, nombre_completo, nacionalidad FROM autores"
+                cursor.execute(querySQL)
+                autoresBD = cursor.fetchall()
+        return autoresBD
+    except Exception as e:
+        # Imprime cualquier error que ocurra durante la conexión o la consulta a la base de datos
+        print(f"Error en lista_autoresBD: {e}")
+        return [] # Retorna una lista vacía en caso de error
+    
+def lista_categoriasBD():
+    """
+    Obtiene la lista de categorías desde la base de datos.
+    Consulta las columnas id_categoria, nombre_categoria y descripcion de la tabla 'categorias'.
+    """
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                # Consulta SQL para seleccionar los datos necesarios de la tabla 'categorias'
+                querySQL = "SELECT id_categoria, nombre_categoria, descripcion FROM categorias"
+                cursor.execute(querySQL)
+                categoriasBD = cursor.fetchall()
+        return categoriasBD
+    except Exception as e:
+        # Imprime cualquier error que ocurra durante la conexión o la consulta a la base de datos
+        print(f"Error en lista_categoriasBD: {e}")
+        return [] # Retorna una lista vacía en caso de error
+    
+def lista_ubicacionesBD():
+    """
+    Obtiene la lista de ubicaciones desde la base de datos.
+    Consulta las columnas id_ubicacion, nombre_ubicacion y referencia de la tabla 'ubicaciones'.
+    """
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                # Consulta SQL para seleccionar los datos necesarios de la tabla 'ubicaciones'
+                querySQL = "SELECT id_ubicacion, nombre_ubicacion, referencia FROM ubicaciones"
+                cursor.execute(querySQL)
+                ubicacionesBD = cursor.fetchall()
+        return ubicacionesBD
+    except Exception as e:
+        # Imprime cualquier error que ocurra durante la conexión o la consulta a la base de datos
+        print(f"Error en lista_ubicacionesBD: {e}")
+        return [] # Retorna una lista vacía en caso de error
+    
+def lista_librosBD():
+    """
+    Obtains the list of books from the database, including author, category,
+    location, and calculated available quantity.
+    """
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                # SQL query to select necessary data from multiple tables and calculate available quantity
+                querySQL = """
+                    SELECT
+                        L.id_libro AS Codigo,
+                        L.nombre_libro AS Titulo,
+                        A.nombre_completo AS Autor_es,
+                        U.nombre_ubicacion AS Ubicacion,
+                        C.nombre_categoria AS Categoria,
+                        L.stock_total - COALESCE(SUM(CASE WHEN D.id_devolucion IS NULL THEN DP.cantidad ELSE 0 END), 0) AS Cant_Disponibles
+                    FROM
+                        libros L
+                    JOIN
+                        autores A ON L.codigo_autor = A.id_autor
+                    JOIN
+                        categorias C ON L.id_categoria = C.id_categoria
+                    JOIN
+                        ubicaciones U ON L.id_ubicacion = U.id_ubicacion
+                    LEFT JOIN 
+                        detalle_prestamos DP ON L.id_libro = DP.id_libro
+                    LEFT JOIN
+                        prestamos P ON DP.id_prestamo = P.id_prestamo
+                    LEFT JOIN
+                        devoluciones D ON P.id_prestamo = D.id_prestamo
+                    WHERE
+                        L.estado_libro = 'activo'
+                    GROUP BY
+                        L.id_libro, L.nombre_libro, A.nombre_completo, U.nombre_ubicacion, C.nombre_categoria, L.stock_total
+                    ORDER BY
+                        L.id_libro;
+                """
+                cursor.execute(querySQL)
+                librosBD = cursor.fetchall()
+        return librosBD
+    except Exception as e:
+        # Prints any error that occurs during database connection or query
+        print(f"Error en lista_librosBD: {e}")
+        return [] # Returns an empty list in case of error

@@ -18,18 +18,12 @@
 
   <div class="menu-inner-shadow"></div>
   <ul class="menu-inner py-5">
-  
     <!-- GENERAL -->
     <li class="menu-title-section">
       <span>GENERAL</span>
       <hr class="section-divider" />
     </li>
 
-
-
-
-
-    
     <li
       class="menu-item {% if request.path == '/dashboard' %} active {% endif %}"
     >
@@ -38,13 +32,6 @@
         <div>Dashboard</div>
       </a>
     </li>
-
-
-
-
-
-
-
 
     <li
       class="menu-item {% if request.path == '/lista-de-usuarios' %} active {% endif %}"
@@ -98,13 +85,32 @@
     </li>
 
     <li
-      class="menu-item {% if request.path == '/lista_user1' %} active {% endif %}"
+      class="menu-item {% if request.path == '/autores' %} active {% endif %}"
     >
-      <a href="/lista_user1" class="menu-link">
-        <i class="menu-icon bi bi-building"></i>
-        <div>Ver</div>
+      <a href="/lista-de-autores" class="menu-link">
+        <i class="menu-icon bi bi-person-lines-fill"></i>
+        <div>Autores</div>
       </a>
     </li>
+
+    <li
+      class="menu-item {% if request.path == '/categorias' %} active {% endif %}"
+    >
+      <a href="/lista-de-categorias" class="menu-link">
+        <i class="menu-icon bi bi-tags"></i>
+        <div>Categorías</div>
+      </a>
+    </li>
+
+    <li
+      class="menu-item {% if request.path == '/ubicaciones' %} active {% endif %}"
+    >
+      <a href="/lista-de-ubicaciones" class="menu-link">
+        <i class="menu-icon bi bi-geo-alt-fill"></i>
+        <div>Ubicaciones</div>
+      </a>
+    </li>
+
 
     <!-- SENSORES Y MONITOREO -->
     <li class="menu-title-section mt-4">
