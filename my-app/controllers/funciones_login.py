@@ -189,3 +189,24 @@ def dataLoginSesion():
         "rol": session['rol']
     }
     return inforLogin
+
+
+#funcion para el codigo del libro
+
+def generar_id_unico():
+    with connectionBD() as db:
+        with db.cursor() as cursor:
+            cursor.execute("SELECT id_libro FROM libros ORDER BY id_libro DESC LIMIT 1")
+            resultado = cursor.fetchone()
+            if resultado:
+                ultimo_id = resultado[0]  # Ejemplo: 'L-01'
+                partes = ultimo_id.split('-')
+                if len(partes) == 2 and partes[1].isdigit():
+                    numero = int(partes[1])
+                    nuevo_numero = numero + 1
+                else:
+                    # Si el formato no es válido, empieza desde 1
+                    nuevo_numero = 1
+            else:
+                nuevo_numero = 1
+    return f"L-{nuevo_numero:02d}"

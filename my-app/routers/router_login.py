@@ -24,15 +24,6 @@ def inicio():
         return render_template(f'{PATH_URL_LOGIN}/base_login.html')
 
 
-@app.route('/mi-perfil/<string:id>', methods=['GET'])
-def perfil(id):
-    if 'conectado' in session:
-        
-        return render_template(f'public/perfil/perfil.html', info_perfil_session=info_perfil_session(id), dataLogin=dataLoginSesion(), areas=lista_areasBD(), roles=lista_rolesBD())
-    else:
-        return redirect(url_for('inicio'))
-
-
 # Crear cuenta de usuario
 @app.route('/register-user', methods=['GET'])
 def cpanelRegisterUser():
@@ -265,3 +256,40 @@ def grafica_fechas_usuario_datos():
     except Exception as e:
         print(f"Error en grafica_fechas_usuario_datos: {e}")
         return jsonify({"error": "Error al obtener los datos"}), 500
+    
+
+
+@app.route('/registrar-libro', methods=['POST'])
+def cpanelRegisterLibroBD():
+    # ... código para registrar libro ...
+    # Recibir datos del formulario
+    titulo = request.form['titulo']
+    autor = request.form['autor']
+    anio = request.form['anio']
+    categoria = request.form['categoria']
+    ubicacion = request.form['ubicacion']
+    stock_total = int(request.form['stock_total'])
+    estado = request.form['estado']
+
+    cantidad_disponible = stock_total  # Al principio es igual al stock total
+    id_libro = generar_id_unico()      # Generar ID estilo L-01
+
+    # Insertar en la base de datos
+    query = """
+        INSERT INTO libros (
+            id_libro, titulo, autores, ubicacion, categoria,
+            cantidad_disponible, stock_total, anio_publicacion, estado
+        )
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """
+    datos = (
+        id_libro, titulo, autor, ubicacion, categoria,
+        cantidad_disponible, stock_total, anio, estado
+    )
+
+    with connectionBD() as db:
+        with db.cursor() as cursor:
+            cursor.execute(query, datos)
+        db.commit()
+
+    return redirect(url_for('libros1'))

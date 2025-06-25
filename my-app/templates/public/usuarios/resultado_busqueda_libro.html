@@ -1,0 +1,25 @@
+{% for libro in dataBusqueda %}
+<tr id="libro_{{ libro.id_libro }}">
+  <td>{{ libro.id_libro }}</td>
+  <td>{{ libro.titulo }}</td>
+  <td>{{ libro.autores }}</td>
+  <td>{{ libro.ubicacion }}</td>
+  <td>{{ libro.categoria }}</td>
+  <td>{{ libro.cantidad_disponible }}</td>
+  <td>
+    {% if libro.estado == 'activo' %}
+      <span class="badge bg-success">Activo</span>
+    {% else %}
+      <span class="badge bg-secondary">Inactivo</span>
+    {% endif %}
+  </td>
+  <td>
+    <a class="btn btn-success btn-sm" title="Editar libro">
+      <i class="bi bi-pencil"></i> Editar
+    </a>
+    <a href="#" onclick="eliminarLibro('{{ libro.id_libro }}');" class="btn btn-danger btn-sm" title="Eliminar libro">
+      <i class="bi bi-trash"></i> Eliminar
+    </a>
+  </td>
+</tr>
+{% endfor %}

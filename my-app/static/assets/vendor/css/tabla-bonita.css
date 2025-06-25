@@ -1,0 +1,241 @@
+/* Estilos para hacer la tabla más bonita */
+.table-container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 24px;
+    margin: 20px 0;
+}
+
+.table-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px 12px 0 0;
+    margin: -24px -24px 20px -24px;
+}
+
+.table-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+
+/* Estilos para DataTables */
+.dataTables_wrapper {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dataTables_length,
+.dataTables_filter {
+    margin-bottom: 20px;
+}
+
+.dataTables_length label,
+.dataTables_filter label {
+    font-weight: 500;
+    color: #374151;
+}
+
+.dataTables_length select,
+.dataTables_filter input {
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 0 8px;
+    transition: all 0.3s ease;
+}
+
+.dataTables_length select:focus,
+.dataTables_filter input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+
+/* ...código existente... */
+
+/* Tabla principal */
+#tbl_libros {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100% !important;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#tbl_libros thead th {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    padding: 16px 12px;
+    border: none;
+    position: relative;
+}
+
+#tbl_libros thead th:first-child {
+    border-radius: 8px 0 0 0;
+}
+
+#tbl_libros thead th:last-child {
+    border-radius: 0 8px 0 0;
+}
+
+#tbl_libros tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+#tbl_libros tbody tr:hover {
+    background-color: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#tbl_libros tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+#tbl_libros tbody tr:nth-child(even):hover {
+    background-color: #f0f9ff;
+}
+
+#tbl_libros tbody td {
+    padding: 16px 12px;
+    vertical-align: middle;
+    border: none;
+    font-size: 0.9rem;
+}
+
+/* ...código existente... */
+
+/* Badges para estado */
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge.bg-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: white;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+.badge.bg-secondary {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%) !important;
+    color: white;
+    box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
+}
+
+/* Botones de acción */
+.btn-action {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    margin: 0 2px;
+}
+
+.btn-edit {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+}
+
+.btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+}
+
+.btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Información de paginación */
+.dataTables_info {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-top: 20px;
+}
+
+/* Paginación */
+.dataTables_paginate {
+    margin-top: 20px;
+}
+
+.dataTables_paginate .paginate_button {
+    background: white;
+    border: 2px solid #e5e7eb;
+    color: #374151;
+    padding: 8px 16px;
+    margin: 0 2px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.dataTables_paginate .paginate_button:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.dataTables_paginate .paginate_button.current {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    border-color: #4f46e5;
+    color: white;
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3);
+}
+
+.dataTables_paginate .paginate_button.disabled {
+    background: #f9fafb;
+    border-color: #f3f4f6;
+    color: #d1d5db;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .table-container {
+        padding: 16px;
+        margin: 10px;
+    }
+    
+    .table-header {
+        margin: -16px -16px 16px -16px;
+        padding: 16px;
+    }
+    
+    .table-title {
+        font-size: 1.25rem;
+    }
+    
+    #lista-de-libros tbody td {
+        padding: 12px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .btn-action {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+}

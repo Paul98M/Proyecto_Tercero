@@ -383,48 +383,120 @@ def lista_ubicacionesBD():
         print(f"Error en lista_ubicacionesBD: {e}")
         return [] # Retorna una lista vacía en caso de error
     
+
+
+#primero librosBD
+#primero librosBD
+
+# primero a qeui defino la funcion para sacar los datos es la conexion a la base de dato
 def lista_librosBD():
     """
-    Obtains the list of books from the database, including author, category,
-    location, and calculated available quantity.
+    Obtiene la lista de libros activos desde la base de datos,
+    con sus datos básicos según la tabla libros.
     """
     try:
         with connectionBD() as conexion_MySQLdb:
             with conexion_MySQLdb.cursor(dictionary=True) as cursor:
-                # SQL query to select necessary data from multiple tables and calculate available quantity
                 querySQL = """
                     SELECT
-                        L.id_libro AS Codigo,
-                        L.nombre_libro AS Titulo,
-                        A.nombre_completo AS Autor_es,
-                        U.nombre_ubicacion AS Ubicacion,
-                        C.nombre_categoria AS Categoria,
-                        L.stock_total - COALESCE(SUM(CASE WHEN D.id_devolucion IS NULL THEN DP.cantidad ELSE 0 END), 0) AS Cant_Disponibles
+                        id_libro,
+                        titulo,
+                        autores,
+                        ubicacion,
+                        categoria,
+                        cantidad_disponible,
+                        stock_total,
+                        anio_publicacion,
+                        estado
                     FROM
-                        libros L
-                    JOIN
-                        autores A ON L.codigo_autor = A.id_autor
-                    JOIN
-                        categorias C ON L.id_categoria = C.id_categoria
-                    JOIN
-                        ubicaciones U ON L.id_ubicacion = U.id_ubicacion
-                    LEFT JOIN 
-                        detalle_prestamos DP ON L.id_libro = DP.id_libro
-                    LEFT JOIN
-                        prestamos P ON DP.id_prestamo = P.id_prestamo
-                    LEFT JOIN
-                        devoluciones D ON P.id_prestamo = D.id_prestamo
-                    WHERE
-                        L.estado_libro = 'activo'
-                    GROUP BY
-                        L.id_libro, L.nombre_libro, A.nombre_completo, U.nombre_ubicacion, C.nombre_categoria, L.stock_total
+                        libros
                     ORDER BY
-                        L.id_libro;
+                        id_libro;
                 """
                 cursor.execute(querySQL)
                 librosBD = cursor.fetchall()
         return librosBD
     except Exception as e:
-        # Prints any error that occurs during database connection or query
         print(f"Error en lista_librosBD: {e}")
-        return [] # Returns an empty list in case of error
+        return []
+    
+#funcion apra eliminar libro 
+def eliminarLibro(id):
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                querySQL = "DELETE FROM libros WHERE id_libro = %s"
+                cursor.execute(querySQL, (id,))
+                conexion_MySQLdb.commit()
+                return cursor.rowcount > 0  # Devuelve True si se eliminó algo
+    except Exception as e:
+        print(f"❌ Error al eliminar libro: {e}")
+        return False
+
+
+#editarlibro
+
+def buscarLibroUnico(id_libro):
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as mycursor:
+                querySQL = ("""
+                    SELECT 
+                        id_libro,
+                        titulo,
+                        autores,
+                        ubicacion,
+                        categoria,
+                        cantidad_disponible,
+                        stock_total,
+                        anio_publicacion,
+                        estado
+                    FROM libros
+                    WHERE id_libro = %s
+                    LIMIT 1
+                """)
+                mycursor.execute(querySQL, (id_libro,))
+                libro = mycursor.fetchone()
+                return libro
+    except Exception as e:
+        print(f"Ocurrió un error en buscarLibroUnico: {e}")
+        return None
+    
+
+
+
+def actualizarLibroBD(id_libro, datos):
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor() as cursor:
+                query = """
+                    UPDATE libros SET
+                        titulo=%s,
+                        autores=%s,
+                        ubicacion=%s,
+                        categoria=%s,
+                        cantidad_disponible=%s,
+                        stock_total=%s,
+                        anio_publicacion=%s,
+                        estado=%s
+                    WHERE id_libro=%s
+                """
+                valores = (
+                    datos['titulo'],
+                    datos['autores'],
+                    datos['ubicacion'],
+                    datos['categoria'],
+                    datos['cantidad_disponible'],
+                    datos['stock_total'],
+                    datos['anio_publicacion'],
+                    datos['estado'],
+                    id_libro
+                )
+                print("Valores para UPDATE:", valores)
+                cursor.execute(query, valores)
+                conexion_MySQLdb.commit()
+                print("Filas actualizadas:", cursor.rowcount)
+                return cursor.rowcount > 0
+    except Exception as e:
+        print(f"Error al actualizar libro: {e}")
+        return False
