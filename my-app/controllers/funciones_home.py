@@ -385,10 +385,19 @@ def lista_ubicacionesBD():
     
 
 
-#primero librosBD
-#primero librosBD
 
-# primero a qeui defino la funcion para sacar los datos es la conexion a la base de dato
+
+# ============================================================
+# FUNCIONES PARA GESTIÓN DE LIBROS EN LA BIBLIOTECA
+# Estas funciones permiten listar, buscar, editar y eliminar
+# libros en la base de datos de la biblioteca.
+# ============================================================
+
+
+
+# =====================================
+# LISTAR LIBROS DESDE LA BASE DE DATOS
+# =====================================
 def lista_librosBD():
     """
     Obtiene la lista de libros activos desde la base de datos,
@@ -419,8 +428,10 @@ def lista_librosBD():
     except Exception as e:
         print(f"Error en lista_librosBD: {e}")
         return []
-    
-#funcion apra eliminar libro 
+
+# =====================================
+# ELIMINAR LIBRO POR ID
+# =====================================
 def eliminarLibro(id):
     try:
         with connectionBD() as conexion_MySQLdb:
@@ -433,9 +444,9 @@ def eliminarLibro(id):
         print(f"❌ Error al eliminar libro: {e}")
         return False
 
-
-#editarlibro
-
+# =====================================
+# BUSCAR LIBRO POR ID (EDICIÓN)
+# =====================================
 def buscarLibroUnico(id_libro):
     try:
         with connectionBD() as conexion_MySQLdb:
@@ -464,7 +475,9 @@ def buscarLibroUnico(id_libro):
     
 
 
-
+# =====================================
+# ACTUALIZAR INFORMACIÓN DE UN LIBRO
+# =====================================
 def actualizarLibroBD(id_libro, datos):
     try:
         with connectionBD() as conexion_MySQLdb:

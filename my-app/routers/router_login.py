@@ -29,10 +29,6 @@ def inicio():
 def cpanelRegisterUser():
         return render_template(f'{PATH_URL_LOGIN}/auth_register.html',dataLogin = dataLoginSesion(),areas=lista_areasBD(), roles=lista_rolesBD())
 
-@app.route('/register-libro', methods=['GET'])
-def cpanelRegisterlibro():
-        return render_template(f'{PATH_URL_LOGIN}/auth_registerlibro.html',dataLogin = dataLoginSesion(),areas=lista_areasBD(), roles=lista_rolesBD())
-
 
 # Recuperar cuenta de usuario
 @app.route('/recovery-password', methods=['GET'])
@@ -259,10 +255,36 @@ def grafica_fechas_usuario_datos():
     
 
 
+
+# ============================================================
+# RUTAS PARA REGISTRAR NUEVOS LIBROS EN LA BIBLIOTECA
+# RUTAS PARA REGISTRAR NUEVOS LIBROS EN LA BIBLIOTECA
+# RUTAS PARA REGISTRAR NUEVOS LIBROS EN LA BIBLIOTECA
+# ============================================================
+
+
+
+# =====================================
+# Mostrar formulario para registrar un libro
+# Método: GET
+# =====================================
+@app.route('/register-libro', methods=['GET'])
+def cpanelRegisterlibro():
+        return render_template(f'{PATH_URL_LOGIN}/auth_registerlibro.html',dataLogin = dataLoginSesion(),areas=lista_areasBD(), roles=lista_rolesBD())
+
+    
+
+# =====================================
+# Procesar formulario de registro de libro
+# Método: POST
+# =====================================
 @app.route('/registrar-libro', methods=['POST'])
 def cpanelRegisterLibroBD():
-    # ... código para registrar libro ...
-    # Recibir datos del formulario
+    #"""
+    # Recibe datos del formulario, genera un ID único,
+    # inserta el nuevo libro en la base de datos y redirige a la lista.
+    #"""
+    # Recibir datos enviados desde el formulario HTML
     titulo = request.form['titulo']
     autor = request.form['autor']
     anio = request.form['anio']

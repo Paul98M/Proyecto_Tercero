@@ -185,9 +185,17 @@ def updateArea():
     
 
 
+# ============================================
+# SECCIÓN: BIBLIOTECA
+# SECCIÓN: BIBLIOTECA
+# SECCIÓN: BIBLIOTECA
+# ============================================
 
 
-#eliminar libro 
+
+# =====================================
+# ELIMINAR LIBRO POR ID
+# =====================================
 @app.route('/borrar-libro/<string:id>', methods=['GET'])
 def borrarLibro(id):
     eliminado = eliminarLibro(id)
@@ -198,8 +206,10 @@ def borrarLibro(id):
     return redirect(url_for('libros1'))  # Asegúrate que este endpoint existe
 
 
-#editar libro
 
+# =====================================
+# MOSTRAR FORMULARIO DE EDICIÓN DE LIBRO
+# =====================================
 @app.route("/editar-libro/<id_libro>", methods=['GET'])
 def viewEditarLibro(id_libro):
     if 'conectado' in session:
@@ -214,7 +224,9 @@ def viewEditarLibro(id_libro):
         return redirect(url_for('login'))
 
 
-#acrualizae libro
+# =====================================
+# ACTUALIZAR DATOS DE UN LIBRO
+# =====================================
 @app.route("/actualizar-libro", methods=['POST'])
 def actualizarLibro():  
     if request.method == 'POST':
@@ -257,4 +269,11 @@ def actualizarLibro():
     else:
         flash('Método no permitido.', 'error')
         return redirect(url_for('libros1'))
+    
+
+# ============================================
+# SECCIÓN: SENSORES
+# SECCIÓN: SENSORES
+# SECCIÓN: SENSORES
+# ============================================
 

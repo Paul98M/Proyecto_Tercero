@@ -191,8 +191,19 @@ def dataLoginSesion():
     return inforLogin
 
 
-#funcion para el codigo del libro
 
+# ============================================================
+# BIBLOTECA - FUNCIONES LOGIN
+# BIBLOTECA - FUNCIONES LOGIN
+# BIBLOTECA - FUNCIONES LOGIN
+# BIBLOTECA - FUNCIONES LOGIN
+# ============================================================
+
+
+# ============================================================
+# FUNCION PARA GENERAR ID ÚNICO PARA UN NUEVO LIBRO
+# Formato esperado: L-01, L-02, L-03, ...
+# ============================================================
 def generar_id_unico():
     with connectionBD() as db:
         with db.cursor() as cursor:
