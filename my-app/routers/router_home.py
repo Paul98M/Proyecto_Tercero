@@ -7,6 +7,14 @@ from mysql.connector.errors import Error
 # Importando cenexión a BD
 from controllers.funciones_home import *
 
+
+# ------------------------------------------------------------
+# RUTA: LISTA DE ÁREAS
+# ------------------------------------------------------------
+# Muestra la lista de áreas registradas en el sistema.
+# Solo accesible si el usuario está autenticado ('conectado' en sesión).
+# Si no está autenticado, redirige a la página de inicio con mensaje de error.
+
 @app.route('/lista-de-areas', methods=['GET'])
 def lista_areas():
     if 'conectado' in session:
@@ -14,7 +22,12 @@ def lista_areas():
     else:
         flash('primero debes iniciar sesión.', 'error')
         return redirect(url_for('inicio'))
+    
 
+# ------------------------------------------------------------
+# RUTA: LISTA DE USUARIOS
+# ------------------------------------------------------------
+# lO MISMO DEL PRIMERO.
 @app.route("/lista-de-usuarios", methods=['GET'])
 def usuarios():
     if 'conectado' in session:
@@ -22,6 +35,11 @@ def usuarios():
     else:
         return redirect(url_for('inicioCpanel'))
     
+
+# ------------------------------------------------------------
+# RUTA: LISTA DE AUTORES
+# ------------------------------------------------------------
+# lO MISMO DEL PRIMERO.
 @app.route("/lista-de-autores", methods=['GET'])
 def autores():
     """
@@ -40,6 +58,10 @@ def autores():
         # Si el usuario no está conectado, redirige a la página de inicio del cPanel
         return redirect(url_for('inicioCpanel'))
     
+# ------------------------------------------------------------
+# RUTA: LISTA DE CATEGORÍAS
+# ------------------------------------------------------------
+# lO MISMO DEL PRIMERO.
 @app.route("/lista-de-categorias", methods=['GET'])
 def categorias():
     """
@@ -59,6 +81,11 @@ def categorias():
         # Si el usuario no está conectado, redirige a la página de inicio del cPanel
         return redirect(url_for('inicioCpanel'))
     
+
+# ------------------------------------------------------------
+# RUTA: LISTA DE UBICACIONES
+# ------------------------------------------------------------
+# lO MISMO DEL PRIMERO.   
 @app.route("/lista-de-ubicaciones", methods=['GET'])
 def ubicaciones():
     """
@@ -79,6 +106,10 @@ def ubicaciones():
         return redirect(url_for('inicioCpanel'))
     
     
+# ------------------------------------------------------------
+# RUTA: LISTA DE LIBROS
+# ------------------------------------------------------------
+# lO MISMO DEL PRIMERO.  
 @app.route("/lista-de-libros1", methods=['GET'])
 def libros1():
     if 'conectado' in session:
@@ -92,8 +123,12 @@ def libros1():
     
     
 
-
-#Ruta especificada para eliminar un usuario
+# ------------------------------------------------------------
+# RUTA: ELIMINAR USUARIO
+# ------------------------------------------------------------
+# Elimina un usuario específico por su ID.
+# Si la eliminación es exitosa, muestra mensaje de éxito
+# y redirige a la lista de usuarios.
 @app.route('/borrar-usuario/<string:id>', methods=['GET'])
 def borrarUsuario(id):
     resp = eliminarUsuario(id)
@@ -101,7 +136,16 @@ def borrarUsuario(id):
         flash('El Usuario fue eliminado correctamente', 'success')
         return redirect(url_for('usuarios'))
     
-    
+
+
+# ------------------------------------------------------------
+# RUTA: ELIMINAR ÁREA
+# ------------------------------------------------------------
+# Elimina un área específica por su ID.
+# Si la eliminación es exitosa, muestra mensaje de éxito
+# y redirige a la lista de áreas.
+# Si existen usuarios asociados a esa área, muestra error
+# y no elimina el área.
 @app.route('/borrar-area/<string:id_area>/', methods=['GET'])
 def borrarArea(id_area):
     resp = eliminarArea(id_area)
@@ -113,6 +157,12 @@ def borrarArea(id_area):
         return redirect(url_for('lista_areas'))
 
 
+# ------------------------------------------------------------
+# RUTA: DESCARGAR INFORME DE ACCESOS
+# ------------------------------------------------------------
+# Permite descargar un reporte de accesos en formato Excel.
+# Solo accesible si el usuario está autenticado ('conectado' en sesión).
+# Si no está autenticado, muestra mensaje de error y redirige al inicio.
 @app.route("/descargar-informe-accesos/", methods=['GET'])
 def reporteBD():
     if 'conectado' in session:
@@ -121,27 +171,46 @@ def reporteBD():
         flash('primero debes iniciar sesión.', 'error')
         return redirect(url_for('inicio'))
     
+
+# ------------------------------------------------------------
+# RUTA: VISTA DE REPORTE DE ACCESOS
+# ------------------------------------------------------------
+# Muestra en pantalla el reporte de accesos del usuario.
+# Solo accesible si el usuario está autenticado ('conectado' en sesión).
 @app.route("/reporte-accesos", methods=['GET'])
 def reporteAccesos():
     if 'conectado' in session:
         userData = dataLoginSesion()
         return render_template('public/perfil/reportes.html',  reportes=dataReportes(),lastAccess=lastAccessBD(userData.get('cedula')), dataLogin=dataLoginSesion())
 
+
+# ------------------------------------------------------------
+# RUTA: INTERFAZ PARA GENERAR CLAVES
+# ------------------------------------------------------------
+# Muestra la interfaz para generar o administrar claves.
+# Accesible mediante métodos GET y POST.
 @app.route("/interfaz-clave", methods=['GET','POST'])
 def claves():
     return render_template('public/usuarios/generar_clave.html', dataLogin=dataLoginSesion())
 
 
-
-#DASBOARD
+# ------------------------------------------------------------
+# RUTA: DASHBOARD PRINCIPAL
+# ------------------------------------------------------------
+# Muestra la página principal de control (dashboard) del sistema.
+# Accesible mediante métodos GET y POST.
 @app.route("/dashboard", methods=['GET', 'POST'])
 def dashboard():
     return render_template('public/usuarios/dashboard.html', dataLogin=dataLoginSesion())
 #DASBOARD
 
 
-
-
+# ------------------------------------------------------------
+# RUTA: GENERAR Y GUARDAR CLAVE PARA USUARIO
+# ------------------------------------------------------------
+# Genera una clave nueva para el usuario con el ID especificado.
+# Guarda la clave en la auditoría y devuelve la clave generada.
+# Accesible mediante métodos GET y POST.
     
 @app.route('/generar-y-guardar-clave/<string:id>', methods=['GET','POST'])
 def generar_clave(id):
@@ -149,7 +218,14 @@ def generar_clave(id):
     clave_generada = crearClave()  # Llama a la función para generar la clave
     guardarClaveAuditoria(clave_generada,id)
     return clave_generada
-#CREAR AREA
+
+
+# ------------------------------------------------------------
+# RUTA: CREAR ÁREA
+# ------------------------------------------------------------
+# Permite crear una nueva área a través de un formulario.
+# En método POST guarda el área y muestra mensaje de éxito o error.
+# En método GET muestra el formulario para crear un área.
 @app.route('/crear-area', methods=['GET','POST'])
 def crearArea():
     if request.method == 'POST':
@@ -165,7 +241,12 @@ def crearArea():
             return "Hubo un error al guardar el área."
     return render_template('public/usuarios/lista_areas')
 
-##ACTUALIZAR AREA
+
+# ------------------------------------------------------------
+# RUTA: ACTUALIZAR ÁREA
+# ------------------------------------------------------------
+# Actualiza el nombre de un área existente mediante formulario POST.
+# Muestra mensaje de éxito o error según el resultado de la actualización.
 @app.route('/actualizar-area', methods=['POST'])
 def updateArea():
     if request.method == 'POST':
@@ -182,15 +263,15 @@ def updateArea():
 
 
     return redirect(url_for('lista_areas'))
+
+
     
 
-
 # ============================================
 # SECCIÓN: BIBLIOTECA
 # SECCIÓN: BIBLIOTECA
 # SECCIÓN: BIBLIOTECA
 # ============================================
-
 
 
 # =====================================
