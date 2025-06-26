@@ -358,3 +358,19 @@ def actualizarLibro():
 # SECCIÓN: SENSORES
 # ============================================
 
+#Datos sensor humo
+@app.route('/sensor-humo', methods=['GET'])
+def sensor_hum():
+    if 'conectado' in session:
+        try:
+            # Obtiene los datos de los sensores de temperatura desde la base de datos
+            datos_sensor_humo = sensor_humo()
+
+            # Renderiza la plantilla con los datos
+            return render_template('public/sensores/sensor_humo.html', datos_sensor_humo = sensor_humo(), dataLogin=dataLoginSesion())
+        except Exception as e:
+            flash(f"Error al obtener datos de sensor de humo: {e}", 'error')
+            return redirect(url_for('inicio'))
+    else:
+        flash('Primero debes iniciar sesión.', 'error')
+        return redirect(url_for('inicio'))

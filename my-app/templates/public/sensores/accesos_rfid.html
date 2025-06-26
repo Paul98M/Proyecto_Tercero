@@ -1,0 +1,65 @@
+{% extends 'public/base_cpanel.html' %}
+
+{% block title %}Registros de Tarjeta{% endblock %}
+
+{% block body %}
+<div class="card" style="border-radius: 0px !important">
+  <h2 class="text-center mt-4 mb-4">Registros de Tarjeta</h2>
+
+  <div class="d-flex justify-content-end mb-3">
+    <a href="#" id="descargarExcelBtn" class="btn btn-outline-success">
+      <i class="bi bi-file-earmark-text"></i> Descargar Excel
+    </a>
+  </div>
+
+  <div class="table-responsive text-nowrap">
+    <table class="table table-hover">
+      <thead style="background-color: #ddd;">
+        <tr>
+          <th>UID Tarjeta</th>
+          <th>Fecha Ingreso</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tarjeta_rfid in datos_tarjeta %}
+        <tr>
+          <td>{{ tarjeta_rfid.UID }}</td>
+          <td class="fecha-hora">{{ tarjeta_rfid.fecha_hora }}</td>
+          <td>{{ tarjeta_rfid.estado }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% block customJS %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+<script>
+  document.getElementById('descargarExcelBtn').addEventListener('click', function () {
+    try {
+      var table = document.querySelector('.table');
+      var rows = Array.from(table.querySelectorAll('tbody tr'));
+
+      var data = [["UID Tarjeta", "Fecha Ingreso", "Estado"]];
+      data = data.concat(rows.map(row => {
+        var cells = Array.from(row.cells);
+        return cells.map(cell => {
+          if (cell.classList.contains('fecha-hora')) {
+            return new Date(cell.innerText).toLocaleString();
+          }
+          return cell.innerText;
+        });
+      }));
+
+      var libro = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(libro, XLSX.utils.aoa_to_sheet(data), 'RegistrosTarjeta');
+      XLSX.writeFile(libro, 'registros_tarjeta.xlsx');
+    } catch (error) {
+      console.error('Error al generar el archivo Excel:', error);
+    }
+  });
+</script>
+{% endblock %}
+{% endblock %}

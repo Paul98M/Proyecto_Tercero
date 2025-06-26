@@ -513,3 +513,25 @@ def actualizarLibroBD(id_libro, datos):
     except Exception as e:
         print(f"Error al actualizar libro: {e}")
         return False
+    
+
+
+def sensor_humo():
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                # Modifica la consulta según la estructura de tu base de datos
+                querySQL = """
+                SELECT sh.id_sensor, sh.fecha_alerta, sh.valor, 
+                       u.id_usuario, u.nombre_usuario, u.apellido_usuario 
+                FROM sensor_humo_m sh
+                INNER JOIN usuarios u ON sh.id_usuario = u.id_usuario
+                ORDER BY sh.fecha_alerta DESC
+                """
+                cursor.execute(querySQL)
+                datos_sensor_humo = cursor.fetchall()
+        return datos_sensor_humo
+    except Exception as e:
+        print(f"Error al obtener datos de sensor de humo: {e}")
+        return []
+    

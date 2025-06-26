@@ -221,3 +221,33 @@ def generar_id_unico():
             else:
                 nuevo_numero = 1
     return f"L-{nuevo_numero:02d}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def tarjeta():
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                querySQL = "SELECT UID, fecha_hora, estado FROM tarjeta_rfid ORDER BY fecha_hora DESC"
+                cursor.execute(querySQL)
+                datos_tarjeta = cursor.fetchall()
+        return datos_tarjeta
+    except Exception as e:
+        print(f"Error al obtener registros de la tarjeta: {e}")
+        return []
+
+
