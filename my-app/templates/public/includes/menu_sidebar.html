@@ -3,7 +3,7 @@
     <a href="{{ url_for('inicio') }}" class="app-brand-link">
       <span class="app-brand-logo demo">
         <img
-          src="{{ url_for('static', filename ='assets/img/logo.png') }}"
+          src="{{ url_for('static', filename ='assets/img/logos.png') }}"
           alt="Logo"
         />
       </span>
@@ -16,15 +16,15 @@
     </a>
   </div>
 
-  <div class="menu-inner-shadow"></div>
+
   <ul class="menu-inner py-5">
     <!-- GENERAL -->
-    <!--
+
     <li class="menu-title-section">
       <span>GENERAL</span>
       <hr class="section-divider" />
     </li>
-
+    <!--
     <li class="menu-item {% if request.path == '/dashboard' %} active {% endif %}">
       <a href="/dashboard" class="menu-link">
         <i class="menu-icon bi bi-speedometer2"></i>
@@ -42,35 +42,39 @@
       </a>
     </li>
 
-    <!--
-    <li class="menu-item {% if request.path == '/interfaz-clave' %} active {% endif %}">
+    <li
+      class="menu-item {% if request.path == '/interfaz-clave' %} active {% endif %}"
+    >
       <a href="/interfaz-clave" class="menu-link">
         <i class="menu-icon bi bi-person-fill-lock"></i>
         <div>Generar Clave</div>
       </a>
     </li>
 
-    <li class="menu-item {% if request.path == '/reporte-accesos' %} active {% endif %}">
+    <li
+      class="menu-item {% if request.path == '/reporte-accesos' %} active {% endif %}"
+    >
       <a href="/reporte-accesos" class="menu-link">
         <i class="menu-icon bi bi-file-lock-fill"></i>
         <div>Reporte Accesos</div>
       </a>
     </li>
 
-    <li class="menu-item {% if request.path == '/mi-perfil/{{dataLogin.id}}' %} active {% endif %}">
+    <li
+      class="menu-item {% if request.path == '/mi-perfil/{{dataLogin.id}}' %} active {% endif %}"
+    >
       <a href="/mi-perfil/{{dataLogin.id}}" class="menu-link">
         <i class="menu-icon bi bi-person-fill-gear"></i>
         <div>Mi Perfil</div>
       </a>
     </li>
-    -->
 
     <!-- GESTIÓN DE BIBLIOTECA -->
     <li class="menu-title-section mt-4">
       <span>GESTIÓN DE BIBLIOTECA</span>
       <hr class="section-divider" />
     </li>
-
+    <!-- 
     <li
       class="menu-item {% if request.path == '/lista-de-libros' %} active {% endif %}"
     >
@@ -79,12 +83,13 @@
         <div>Lista Libros</div>
       </a>
     </li>
+    -->
     <li
       class="menu-item {% if request.path == '/lista-de-libros1' %} active {% endif %}"
     >
       <a href="/lista-de-libros1" class="menu-link">
         <i class="menu-icon bi bi-book-half"></i>
-        <div>Lista Libros1</div>
+        <div>Lista Libros</div>
       </a>
     </li>
     <!-- 
@@ -111,33 +116,38 @@
     -->
 
     <!-- SENSORES Y MONITOREO -->
-    <!--
     <li class="menu-title-section mt-4">
       <span>SENSORES Y MONITOREO</span>
       <hr class="section-divider" />
     </li>
 
-    <li class="menu-item {% if request.path == '/temperatura' %} active {% endif %}">
+    <li
+      class="menu-item {% if request.path == '/temperatura' %} active {% endif %}"
+    >
       <a href="/temperatura" class="menu-link">
         <i class="menu-icon bi bi-thermometer-half"></i>
         <div>Temperatura</div>
       </a>
     </li>
 
-    <li class="menu-item {% if request.path == '/sensor-humo' %} active {% endif %}">
+    <li
+      class="menu-item {% if request.path == '/sensor-humo' %} active {% endif %}"
+    >
       <a href="/sensor-humo" class="menu-link">
         <i class="menu-icon bi bi-cloud-fog2-fill"></i>
         <div>Sensor de Humo</div>
       </a>
     </li>
 
-    <li class="menu-item {% if request.path == '/accesos-rfid' %} active {% endif %}">
+    <li
+      class="menu-item {% if request.path == '/accesos-rfid' %} active {% endif %}"
+    >
       <a href="/accesos-rfid" class="menu-link">
         <i class="menu-icon bi bi-credit-card-fill"></i>
         <div>Accesos RFID</div>
       </a>
     </li>
-
+    <!--
     <li class="menu-item {% if request.path == '/gestion-energetica' %} active {% endif %}">
       <a href="/gestion-energetica" class="menu-link">
         <i class="menu-icon bi bi-lightning-charge-fill"></i>
