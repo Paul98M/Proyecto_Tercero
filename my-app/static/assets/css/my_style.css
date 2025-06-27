@@ -1,258 +1,366 @@
-body {
-  font-family: "Open Sans", sans-serif;
+/* ==============================================
+   LIBROPOLI - Sistema de Gestión de Biblioteca
+   Sidebar CSS Personalizado
+   ============================================== */
+
+:root {
+    --libropoli-gold: #d97706;
+    --libropoli-gold-light: #f59e0b;
+    --libropoli-gold-dark: #b45309;
+    --libropoli-bronze: #a16207;
+    --libropoli-cream: #fef3c7;
+    --libropoli-cream-light: #fffbeb;
+    --libropoli-brown: #78350f;
+    --libropoli-brown-light: #92400e;
+    --libropoli-white: #ffffff;
+    --libropoli-gray-50: #f9fafb;
+    --libropoli-gray-100: #f3f4f6;
+    --libropoli-gray-200: #e5e7eb;
+    --libropoli-gray-600: #4b5563;
+    --libropoli-gray-800: #1f2937;
+    --libropoli-gray-900: #111827;
+    --libropoli-success: #10b981;
+    --libropoli-danger: #ef4444;
+    --libropoli-warning: #f59e0b;
+    --libropoli-info: #3b82f6;
 }
 
-.gj-datepicker-bootstrap [role="right-icon"] button {
-  border: none !important;
-}
-.bi-check-all {
-  font-size: 20px;
-}
-
-/*Inicio del loader */
-#loader-out {
-  background-color: #cecece;
-  opacity: 0.5;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 100000000;
+/* Reset y configuración base */
+.layout-container {
+    display: flex;
+    min-height: 100vh;
 }
 
-#loader-container {
-  width: 150px;
-  height: 150px;
-  color: white;
-  margin: 0 auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  border: 5px solid #cecece;
-  border-radius: 50%;
-  -webkit-animation: borderScale 1s infinite ease-in-out;
-  animation: borderScale 1s infinite ease-in-out;
+.layout-menu {
+    width: 280px;
+    background-color: var(--libropoli-white);
+    border-right: 1px solid var(--libropoli-gray-200);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-#loading-text {
-  color: #222;
-  font-size: 1.5em;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-}
-@-webkit-keyframes borderScale {
-  0% {
-    border: 5px solid white;
-  }
-  50% {
-    border: 25px solid #08b324;
-  }
-  100% {
-    border: 5px solid white;
-  }
+/* Header de la aplicación */
+.app-brand {
+    padding: 24px;
+    border-bottom: 1px solid var(--libropoli-gray-100);
+    background: linear-gradient(135deg, var(--libropoli-cream-light) 0%, var(--libropoli-white) 100%);
 }
 
-@keyframes borderScale {
-  0% {
-    border: 5px solid white;
-  }
-  50% {
-    border: 25px solid #08b324;
-  }
-  100% {
-    border: 5px solid white;
-  }
-}
-/*Fin del loader*/
-
-.bi-arrow-left-circle:hover {
-  color: #222;
+.app-brand-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 12px;
+    transition: transform 0.2s ease;
 }
 
-.font_sise_17 {
-  font-size: 17px;
+.app-brand-link:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
 }
 
-.menu-vertical .app-brand {
-  padding-left: 15px !important;
+.app-brand-logo {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--libropoli-gold) 0%, var(--libropoli-gold-light) 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--libropoli-white);
+    font-size: 20px;
+    box-shadow: 0 2px 4px rgba(217, 119, 6, 0.3);
 }
 
-.btnMovil {
-  display: flex;
-  justify-content: flex-end;
-  text-align: end;
-  background-color: #fff;
+.app-brand-text {
+    display: flex;
+    flex-direction: column;
 }
 
-.bx-menu {
-  background-color: #08b324 !important;
-  color: #fff;
-  padding: 10px 10px;
-  border-radius: 50%;
+.app-brand-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--libropoli-gold);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
 }
 
-.menu-vertical,
-.menu-vertical .menu-block,
-.menu-vertical .menu-inner > .menu-item,
-.menu-vertical .menu-inner > .menu-header {
-  width: 20.25rem !important;
+.app-brand-subtitle {
+    font-size: 13px;
+    color: var(--libropoli-gray-600);
+    font-weight: 500;
+    margin-top: 2px;
 }
 
-.noLeido {
-  color: #272e37;
-  font-weight: 600;
-}
-
-tbody tr {
-  border-bottom: 1px solid #eee !important;
-}
-
-tbody tr:hover {
-  cursor: pointer;
-}
-.checkedTodos:hover {
-  cursor: pointer;
-}
-
-.form-check-input[disabled] ~ .form-check-label,
-.form-check-input:disabled ~ .form-check-label {
-  opacity: initial !important;
-}
-
-.borderCheckbox {
-  cursor: pointer;
-  border-color: #08b324;
-  box-shadow: 0 2px 4px 0 rgba(10, 207, 10, 0.4);
-}
-.pagination {
-  justify-content: center;
-}
-
-/*Loader para precarga en botn cargar mas consignaciones*/
-.loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 100000000;
-  background-color: #cecece;
-  opacity: 0.5;
-}
-
-.pesos {
-  background-color: #08b324;
-  color: #fff;
-  padding: 2px;
-  border-radius: 10%;
-  margin-right: 10px;
-}
-
-.colorTheadTrTh {
-  color: #fff !important;
-}
-
-.input_vacio {
-  border-color: #dc3545 !important;
-}
-.input_lleno {
-  border-color: #198754 !important;
-}
-
-.menu-vertical .menu-inner > .menu-item .menu-link {
-  margin: 0 !important;
-}
-.menu-vertical,
-.menu-vertical .menu-block,
-.menu-vertical .menu-inner > .menu-item,
-.menu-vertical .menu-inner > .menu-header {
-  width: 17.25rem !important;
-}
-
-@media (min-width: 1400px) {
-  .container-xxl,
-  .container-xl,
-  .container-lg,
-  .container-md,
-  .container-sm,
-  .container {
-    max-width: 95% !important;
-  }
-}
-
-.menu-vertical .menu-item.active:not(.open) > .menu-link {
-  font-size: 14px !important;
-}
-
-.alert-success {
-  background-color: #48c808 !important;
-  color: #fff !important;
-}
-
-.mayuscula {
-  text-transform: uppercase !important;
-}
-.btn-primary {
-  background-color: #09c046 !important;
-  border: none !important;
-}
-.btn-close {
-  width: auto !important;
-  height: auto !important;
-}
-.bi-x {
-  color: #222 !important;
-}
-
-.form-check-input {
-  width: 1.8em !important;
-  height: 1.9em !important;
-}
-
-.difference {
-  padding: 5px 10px;
-  font-size: 15px;
-  color: #222;
-}
-.bi-star-fill {
-  padding: 0px 10px 0px 0px;
-}
-
-#informe_general:hover {
-  cursor: pointer;
-  border-bottom: dotted 1px #08b324;
-}
-
-#search {
-  min-width: 44% !important;
-  background-color: #f3efef !important;
-}
-
-.acceso {
-  line-height: 18px;
+/* Menú principal */
+.menu-inner {
+    flex: 1;
+    padding: 24px 16px;
+    list-style: none;
+    margin: 0;
 }
 
 .menu-title-section {
-  padding: 0 1rem;
+    margin-bottom: 12px;
+}
+
+.menu-title-section:not(:first-child) {
+    margin-top: 32px;
 }
 
 .menu-title-section span {
-  display: block;
-  font-size: 0.75rem;
-  color: #6c757d; /* gris suave */
-  text-transform: uppercase;
-  font-weight: 600;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--libropoli-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0 12px;
+    display: block;
 }
 
 .section-divider {
-  border: none;
-  border-top: 1px solid #ccc; /* color de línea */
-  margin: 2px 0 10px 0; /* línea pegada al título */
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, var(--libropoli-gray-200) 0%, transparent 100%);
+    margin: 8px 0 12px 0;
+}
+
+.menu-item {
+    margin-bottom: 4px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    text-decoration: none;
+    color: var(--libropoli-gray-800);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--libropoli-gold) 0%, var(--libropoli-gold-light) 100%);
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.menu-link:hover {
+    background-color: var(--libropoli-gray-50);
+    color: var(--libropoli-gold);
+    text-decoration: none;
+    transform: translateX(4px);
+}
+
+.menu-link:hover::before {
+    width: 4px;
+}
+
+.menu-item.active .menu-link {
+    background: linear-gradient(135deg, var(--libropoli-gold) 0%, var(--libropoli-gold-light) 100%);
+    color: var(--libropoli-white);
+    box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
+    transform: translateX(0);
+}
+
+.menu-item.active .menu-link::before {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item.active .menu-link:hover {
+    background: linear-gradient(135deg, var(--libropoli-gold-dark) 0%, var(--libropoli-gold) 100%);
+    color: var(--libropoli-white);
+    transform: translateX(0);
+}
+
+.menu-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.menu-link div {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Sección de cerrar sesión */
+.menu-divider {
+    margin: 24px 0 16px 0;
+}
+
+.menu-item.logout .menu-link {
+    color: var(--libropoli-danger);
+    border: 1px solid transparent;
+}
+
+.menu-item.logout .menu-link:hover {
+    background-color: #fef2f2;
+    color: var(--libropoli-danger);
+    border-color: #fecaca;
+    transform: translateX(4px);
+}
+
+.menu-item.logout .menu-link:hover::before {
+    width: 4px;
+    background: var(--libropoli-danger);
+}
+
+/* Botón toggle para móvil */
+.mobile-menu-toggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: linear-gradient(135deg, var(--libropoli-gold) 0%, var(--libropoli-gold-light) 100%);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.mobile-menu-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenido principal */
+.layout-page {
+    margin-left: 280px;
+    padding: 24px;
+    flex: 1;
+    background-color: var(--libropoli-gray-50);
+    min-height: 100vh;
+}
+
+/* Scrollbar personalizado */
+.layout-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.layout-menu::-webkit-scrollbar-track {
+    background: var(--libropoli-gray-50);
+}
+
+.layout-menu::-webkit-scrollbar-thumb {
+    background: var(--libropoli-gray-200);
+    border-radius: 3px;
+}
+
+.layout-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--libropoli-gold);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .layout-menu {
+        width: 260px;
+    }
+    
+    .layout-page {
+        margin-left: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .layout-menu {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        width: 280px;
+    }
+
+    .layout-menu.mobile-open {
+        transform: translateX(0);
+        box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .layout-page {
+        margin-left: 0;
+        padding: 80px 16px 24px 16px;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .app-brand {
+        padding: 20px;
+    }
+
+    .menu-inner {
+        padding: 20px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .layout-menu {
+        width: 100vw;
+    }
+    
+    .app-brand-title {
+        font-size: 16px;
+    }
+    
+    .app-brand-subtitle {
+        font-size: 12px;
+    }
+    
+    .menu-link {
+        padding: 14px 12px;
+    }
+    
+    .layout-page {
+        padding: 80px 12px 24px 12px;
+    }
+}
+
+ 
+
+/* Estados de focus para accesibilidad */
+.menu-link:focus {
+    outline: 2px solid var(--libropoli-gold);
+    outline-offset: 2px;
+}
+
+.mobile-menu-toggle:focus {
+    outline: 2px solid var(--libropoli-white);
+    outline-offset: 2px;
+}
+
+/* Overlay para móvil */
+@media (max-width: 768px) {
+    .layout-menu.mobile-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 280px;
+        width: calc(100vw - 280px);
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+    }
 }
